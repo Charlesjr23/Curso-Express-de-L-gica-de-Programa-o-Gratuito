@@ -1,0 +1,30 @@
+início {
+    inteiro: num[5];
+    inteiro: maior;
+    inteiro: menor;
+    inteiro: i;
+    inteiro: temp;
+    i=0;
+    enquanto (i<5){
+        leia("Digite um nº", num[i]);
+        se (i == 0){
+            maior = num[i];
+            menor = num[i];
+        }senão se (num[i] > maior){
+            maior = num[i];
+        }senão se (num[i] < menor){
+            menor = num[i];
+        }
+        i++;
+    }
+    escreva ("O maior número é: " + maior);
+    escreva ("O menor número é: " +menor);
+    escreva("O resultado da média é: " + calculaMedia(maior, menor));
+}
+
+função calculaMedia(inteiro: maior, inteiro: menor) -> real{
+    real:soma;
+    real: result;
+    soma = maior + menor;
+    retorne result = soma/2;
+}

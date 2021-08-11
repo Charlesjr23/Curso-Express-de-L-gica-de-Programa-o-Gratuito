@@ -1,0 +1,19 @@
+início {
+    caractere: nome;
+    real: valor;
+    real: bonus;
+    inteiro: cont;
+    enquanto (cont < 100){
+        leia("Qual nome do cliente? ", nome);
+        leia("Qual ultimo valor gasto por " + nome + "?", valor);
+        se (valor < 500){
+            bonus = 0.1;
+            escreva("O valor do bônus de " + nome + " é de: " + bonus*100 +"%");
+        }senão{
+            bonus = 0.15;
+            escreva("O valor do bônus de " + nome + " é de: " + bonus*100 +"%");
+        }
+       cont++;
+    }
+     escreva("Obrigado pela preferência!");
+}

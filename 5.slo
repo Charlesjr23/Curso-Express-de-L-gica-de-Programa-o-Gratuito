@@ -1,0 +1,127 @@
+tipo cidade{
+    caractere: nome;
+    inteiro: codigo;
+    caractere: estado;
+    //Tive que colocar real pela limitação do programa que nao divia certo a porcentagem
+    real: numCarro;
+    real: numAcidente;
+}
+início {
+    cidade: cidades[5];
+    inteiro: op;
+    
+    enquanto (op <> 5){
+        mostrarMenu();
+        leia("Digite sua escolha: ", op);
+        se (op == 1){
+            cadastrarCidade(cidades);
+        }senão se(op == 2){
+            escreva("O menor índice pertence a: " + menorIndice(cidades));
+            escreva("O maior índice pertence a: " + maiorIndice(cidades));
+        }senão se(op == 3){
+            escreva("A média de veículos é: " + mediaVeiculos(cidades));
+        }senão se(op == 4){
+            escreva("A Média de acidentes com vítimas entre as cidades do Rio Grande do Sul é: " + mediaAcidentes(cidades));
+        }senão se(op == 5){
+            escreva("Obrigado pela preferencia!");
+        }senão {
+            escreva("Digite um valor válido");
+        }
+        
+    }
+}
+
+função mostrarMenu(){
+    
+    escreva("------------------");
+    escreva("Escolha uma opção!");
+    escreva("------------------");
+    escreva("1-Cadastrar cidade");
+    escreva("2-Maior e o menor índice de acidentes de trânsito e a que cidades pertencem");
+    escreva("3-Média de veículos nas cidades brasileiras");
+    escreva("4-Média de acidentes com vítimas entre as cidades do Rio Grande do Sul");
+    escreva("5-sair ");
+    
+}
+
+função cadastrarCidade(cidade: cidades[5]){
+    inteiro: i;
+    para i de 0 até 4 passo 1{
+        cidade: cidadeAtual;
+        //tive que fazer dessa forma porque a ferramenta naoa aceita concatenar
+        // string com algo que tenha colchetes.
+        cidadeAtual = cidades[i];
+        leia("Digite o nome: ", cidadeAtual.nome);
+        leia("Digite o código de "+cidadeAtual.nome+":", cidadeAtual.codigo);
+        leia("Digite o estado de "+cidadeAtual.nome+":", cidadeAtual.estado);
+        leia("Digite a quantidade de carros de "+cidadeAtual.nome+":", cidadeAtual.numCarro);
+        leia("Digite a quantidade de acidentes de "+cidadeAtual.nome+":", cidadeAtual.numAcidente);
+    }
+}
+
+
+função menorIndice(cidade: cidades[5]) -> caractere{
+    inteiro: i;
+    real: menor;
+    real: indice;
+    caractere: cidade;
+    caractere: resp;
+    para i de 0 até 4 passo 1{
+        
+        indice = cidades[i].numAcidente / cidades[i].numCarro;
+        
+        se (i==0){
+            menor = indice;
+            cidade = cidades[i].nome;
+        } senão se (indice < menor){
+            menor = indice;
+            cidade = cidades[i].nome;
+        }
+    }
+    
+    retorne resp = cidade + " / " + menor*100 + "%";
+}
+função maiorIndice(cidade: cidades[5]) -> caractere{
+    inteiro: i;
+    real: maior;
+    real: indice;
+    caractere: cidade;
+    caractere: resp;
+    para i de 0 até 4 passo 1{
+        
+        indice = cidades[i].numAcidente / cidades[i].numCarro;
+        
+        se (i==0){
+            maior = indice;
+            cidade = cidades[i].nome;
+        } senão se (indice > maior){
+            maior = indice;
+            cidade = cidades[i].nome;
+        }
+    }
+    
+    retorne resp = cidade + " / " + maior*100 + "%";
+}
+função mediaVeiculos(cidade: cidades[5]) -> real{
+    inteiro: i;
+    real: soma;
+ 
+    para i de 0 até 4 passo 1{
+      soma = soma + cidades[i].numCarro;
+    }
+    
+    retorne soma/5;
+}
+função mediaAcidentes(cidade: cidades[5]) -> real{
+    inteiro: i;
+    real: soma;
+    real: cont;
+    para i de 0 até 4 passo 1{
+        se (cidades[i].estado == "RS"){
+            soma = soma + cidades[i].numAcidente;
+            cont++;
+        }
+    }
+    
+    retorne soma/cont;
+}

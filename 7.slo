@@ -1,0 +1,29 @@
+início {
+    caractere: nome;
+    real: notas[4];
+    inteiro: cont;
+    inteiro: i;
+    real: soma;
+    i = 1;
+    enquanto (cont < 35){
+        leia("Qual nome do aluno? ", nome);
+        enquanto(i <4){
+            leia("Qual a " + i + "ª nota do aluno " + nome + "?", notas[i]);
+            se(i == 1){
+                soma = soma + (notas[i] * 2);
+            } senão se (i == 2){
+                soma = soma + (notas[i] * 4);
+            } senão{
+                soma = soma + (notas[i] * 3);
+            }
+            i++;
+            
+        }
+        //Na atividade pedia para dividir por 10 mas a soma dos pesos é igual a nove então estou dividindo por 9
+        escreva("A media ponderada do aluno " + nome + " foi:" + soma/9);
+        soma=0;
+        i=1;
+        cont++;
+    }
+    escreva("Obrigado pela preferência!");
+}

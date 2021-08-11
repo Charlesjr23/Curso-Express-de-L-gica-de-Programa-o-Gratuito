@@ -1,0 +1,9 @@
+início {
+    inteiro: i;
+ 
+    para i de 300 até 600 passo 1{
+        se(i%2 <> 0){
+            escreva(i); 
+        }   
+    }
+}

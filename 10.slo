@@ -1,0 +1,41 @@
+
+início {
+    inteiro: sexo;
+    real: altura;
+    inteiro: i;
+    real: maior;
+    real: menor;
+    real: somaMulheres;
+    real: soma;
+    real: contMulheres;
+    real: temp1;
+    real: temp2;
+    para i de 1 até 50 passo 1 {
+        leia("Digite a altura da pessoa em cm ", altura);
+        se (i == 1){
+         maior = altura;
+         menor = altura;
+         
+        } senão se (altura < menor){
+            menor = altura; 
+            
+        } senão se (altura > maior){
+            maior = altura;    
+        }
+        leia("Digite o sexo da pessoa 1=MASCULINO e 2=FEMININO: ", sexo);
+        se(sexo <> 1 e sexo <> 2){
+            escreva("Digite um valor válido!");
+        } senão se(sexo == 2){
+            somaMulheres = somaMulheres + altura;
+            contMulheres++;
+        }
+        soma = soma + altura;
+    }
+    
+    temp1 = somaMulheres/contMulheres;
+    temp2 = (soma/50);
+    escreva("A maior altura é: " + maior/100 + "m");
+    escreva("A menor altura é: " + menor/100 + "m");
+    escreva("A média de altura das mulheres é de: " + temp1/100 + "m");
+    escreva("A média de altura é de: " + temp2/100 + "m");
+}

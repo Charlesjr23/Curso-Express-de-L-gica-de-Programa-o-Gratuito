@@ -1,0 +1,143 @@
+tipo habitante{
+    caractere: nome;
+    inteiro: sexo;
+    inteiro: idade;
+    real: altura;
+}
+início {
+    habitante: habitantes[10000];
+    inteiro: op;
+    
+    enquanto (op <> 6){
+        mostrarMenu();
+        leia("Digite sua escolha: ", op);
+        se (op == 1){
+            cadastrarHab(habitantes);
+        }senão se(op == 2){
+            escreva("A média da idade do grupo é: " + mostrarMediaIdade(habitantes));
+        }senão se(op == 3){
+            escreva("A média da altura das mulheres é: " + calcularMediaAltMulheres(habitantes));
+        }senão se(op == 4){
+            escreva("A média da idade dos homens é: " + calcularMediaIdadeHomens(habitantes));
+        }senão se(op == 5){
+            escreva("percentual de pessoas com idade entre 18 e 45 anos é: " + calcularPercentual(habitantes));
+        }senão se(op == 6){
+            escreva("Obrigado pela preferencia!");
+        }senão {
+            escreva("Digite um valor válido");
+        }
+        
+    }
+}
+
+função mostrarMenu(){
+    
+    escreva("------------------");
+    escreva("Escolha uma opção!");
+    escreva("------------------");
+    escreva("1-Cadastrar habitante");
+    escreva("2-Média da idade do grupo");
+    escreva("3-Mostrar média da altura das mulheres");
+    escreva("4-Média da idade dos homens");
+    escreva("5-Percentual de pessoas com idade entre 18 e 45 anos");
+    escreva("6-sair ");
+    
+}
+
+função cadastrarHab(habitante: habitantes[10000]){
+    inteiro: i;
+    para i de 0 até 9999 passo 1{
+        habitante: habAtual;
+        //tive que fazer dessa forma porque a ferramenta naoa aceita concatenar
+        // string com algo que tenha colchetes.
+        habAtual = habitantes[i];
+        leia("Digite o nome: ", habAtual.nome);
+        cadastrarSexo(habAtual);
+        leia("Digite a idade de "+habAtual.nome+":", habAtual.idade);
+        leia("Digite a altura "+habAtual.nome+":", habAtual.altura);
+    }
+}
+função cadastrarSexo(habitante: habitante) -> inteiro{
+    leia("Digite o sexo 0-Feminino e 1-Masculino de "+habitante.nome+":", habitante.sexo);
+    se (habitante.sexo <> 0 e habitante.sexo <> 1){
+        escreva("Favor escolher entre 0 = Feminino e 1 = Masculino)");
+        retorne cadastrarSexo(habitante);
+    }
+    retorne habitante.sexo;
+}
+função escolherSexo() -> inteiro{
+    inteiro: resp;
+    leia("Favor escolher qual grupo quer saber a média 0=FEMININO E 1=MASCULINO e 2=TODOS", resp);
+    se (resp <> 0 e resp <> 1 e resp <> 2){
+        escreva ("Favor escolher entre 0 = Feminino e 1 = Masculino)");
+        retorne escolherSexo();
+    }
+   
+    retorne resp;
+}
+função mostrarMediaIdade(habitante: habitantes[10000]) -> real{
+    inteiro: resp;
+    real: soma;
+    inteiro: i;
+    inteiro: cont;
+    resp = escolherSexo();
+    enquanto(i < 10000){
+        se(resp == 2){
+           soma = soma + habitantes[i].idade;
+           cont++; 
+        }senão se(resp == habitantes[i].sexo){
+            soma = soma + habitantes[i].idade;
+            cont++;
+        }
+        i++;
+    }
+  
+    retorne soma/cont;
+    
+}
+função calcularMediaAltMulheres(habitante: habitantes[10000]) -> real{
+    real: soma;
+    inteiro: i;
+    inteiro: cont;
+    
+    enquanto(i < 10000){
+        se (habitantes[i].sexo == 0){
+            soma = soma + habitantes[i].altura;
+            cont++;
+        }
+        i++;
+    }
+  
+    retorne soma/cont;
+    
+}
+função calcularMediaIdadeHomens(habitante: habitantes[10000]) -> real{
+    real: soma;
+    inteiro: i;
+    inteiro: cont;
+    
+    enquanto(i < 10000){
+        se (habitantes[i].sexo == 1){
+            soma = soma + habitantes[i].idade;
+            cont++;
+        }
+        i++;
+    }
+  
+    retorne soma/cont;
+    
+}
+função calcularPercentual(habitante: habitantes[10000]) -> real{
+    inteiro: i;
+    real: cont;
+    
+    enquanto(i < 10000){
+        se (habitantes[i].idade >= 18 e habitantes[i].idade <= 45){
+            cont++;
+        }
+        i++;
+    }
+  
+    retorne (cont/i)*100;
+    
+}

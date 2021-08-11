@@ -1,0 +1,99 @@
+tipo habitante{
+    caractere: nome;
+    real: sal;
+    caractere: estCivil;
+    inteiro: qtdFilhos;
+}
+início {
+    habitante: habitantes[5];
+    inteiro: op;
+    
+    enquanto (op <> 6){
+        mostrarMenu();
+        leia("Digite sua escolha: ", op);
+        se (op == 1){
+            cadastrarHab(habitantes);
+        } senão se(op == 2){
+            escreva("A média salarial dos habitantes é: " +calcularMediaSal(habitantes));
+        } senão se(op == 3){
+            escreva("A média de filhos dos habitantes é: " + calcularMediaFilhos(habitantes));
+        }senão se(op == 4){
+            escreva("A porcentagem de habitantes com salario inferior a 1090,00 é: " + calcularPorcSal(habitantes));
+        }senão se(op == 5){
+            escreva("O menor salário é: " + menorSalario(habitantes));
+        }senão {
+            escreva("Digite um valor válido");
+        }
+        
+    }
+}
+
+função mostrarMenu(){
+    
+    escreva("------------------");
+    escreva("Escolha uma opção!");
+    escreva("------------------");
+    escreva("1-Cadastrar habitante");
+    escreva("2-Mostrar média dos salarios");
+    escreva("3-Média do número de filhos");
+    escreva("4-Percentual de pessoas com salário até R$1090,00");
+    escreva("5-menor salário");
+    escreva("6-sair ");
+    
+}
+
+função cadastrarHab(habitante: habitantes[5]){
+    inteiro: i;
+    para i de 0 até 4 passo 1{
+        habitante: habAtual;
+        //tive que fazer dessa forma porque a ferramenta naoa aceita concatenar
+        // string com algo que tenha colchetes.
+        habAtual = habitantes[i];
+        leia("Digite o nome: ", habAtual.nome);
+        leia("Digite o salário de "+habAtual.nome+":", habAtual.sal);
+        leia("Digite o estado civil de "+habAtual.nome+":", habAtual.estCivil);
+        leia("Digite a quantidade filhos de "+habAtual.nome+":", habAtual.qtdFilhos);
+    }
+}
+função calcularMediaSal(habitante: habitantes[5]) -> real{
+    real: soma;
+    inteiro: i;
+    para i de 0 até 4 passo 1{
+        soma = soma + habitantes[i].sal;
+    }
+    
+    retorne  soma/i;
+}
+função calcularMediaFilhos(habitante: habitantes[5]) -> real{
+    real: soma;
+    inteiro: i;
+    para i de 0 até 4 passo 1{
+        soma = soma + habitantes[i].qtdFilhos;
+    }
+    
+    retorne soma/i;
+}
+função calcularPorcSal(habitante: habitantes[5]) -> real{
+    real: cont;
+    inteiro: i;
+    para i de 0 até 4 passo 1{
+        se (habitantes[i].sal < 1090){
+            cont++;
+        }
+    }
+    
+    retorne  (cont/i)*100;
+}
+função menorSalario(habitante: habitantes[5]) -> real{
+  inteiro: i;
+  real: menor;
+    para i de 0 até 4 passo 1{
+        se (i==0){
+            menor = habitantes[0].sal;
+        } senão se (habitantes[i].sal < menor){
+            menor = habitantes[i].sal; 
+        }
+    }
+    
+    retorne menor; 
+}
